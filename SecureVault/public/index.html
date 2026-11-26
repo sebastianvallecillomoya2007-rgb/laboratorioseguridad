@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f2">
+  <meta name="description" content="SecureVault: un espacio privado para tus notas personales.">
+  <title>SecureVault — tus notas, bajo llave</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-vault" viewBox="0 0 32 32">
+      <rect x="5" y="4" width="22" height="24" rx="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M12 14v-2a4 4 0 0 1 8 0v2m-9 0h10v8H11z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <circle cx="16" cy="18" r="1.2" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-plus" viewBox="0 0 20 20"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 20 20"><circle cx="8.7" cy="8.7" r="5.7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="icon-note" viewBox="0 0 20 20"><path d="M5 2.8h7l4 4V17a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3.8a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 3v4h4M7 11h6M7 14h6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+    <symbol id="icon-user" viewBox="0 0 20 20"><circle cx="10" cy="6.5" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4 17c.5-3.1 2.5-4.7 6-4.7s5.5 1.6 6 4.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="icon-exit" viewBox="0 0 20 20"><path d="M8 3H4.5A1.5 1.5 0 0 0 3 4.5v11A1.5 1.5 0 0 0 4.5 17H8m3-3 4-4-4-4m4 4H7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-lock" viewBox="0 0 20 20"><rect x="4" y="8" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 8V6a3 3 0 0 1 6 0v2m-3 4v2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="icon-trash" viewBox="0 0 20 20"><path d="M3.5 5.5h13m-11.5 0 .8 11h8.4l.8-11M7.5 5.5V3.8h5V5.5m-4 3v5m3-5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <div id="auth-screen" class="auth-screen">
+    <aside class="auth-aside" aria-label="Acerca de SecureVault">
+      <a class="brand brand-light" href="/" aria-label="SecureVault, inicio">
+        <span class="brand-mark"><svg><use href="#icon-vault"></use></svg></span>
+        <span>secure<span class="brand-weight">vault</span></span>
+      </a>
+      <div class="aside-copy">
+        <span class="aside-kicker"><span class="status-dot"></span> TU ESPACIO PERSONAL</span>
+        <h1>Lo que importa,<br><em>bajo llave.</em></h1>
+        <p>Un lugar tranquilo para guardar tus ideas, planes y pequeños detalles del día.</p>
+      </div>
+      <div class="vault-art" aria-hidden="true">
+        <div class="art-orbit orbit-one"></div>
+        <div class="art-orbit orbit-two"></div>
+        <div class="art-shape shape-one"></div>
+        <div class="art-shape shape-two"></div>
+        <div class="art-vault"><svg><use href="#icon-vault"></use></svg></div>
+        <span class="art-spark spark-one">✳</span>
+        <span class="art-spark spark-two">✦</span>
+      </div>
+      <p class="aside-foot"><svg><use href="#icon-lock"></use></svg> Tus notas se cifran antes de guardarse.</p>
+    </aside>
+
+    <main class="auth-main" aria-label="Acceso a SecureVault">
+      <div class="auth-mobile-brand brand">
+        <span class="brand-mark"><svg><use href="#icon-vault"></use></svg></span>
+        <span>secure<span class="brand-weight">vault</span></span>
+      </div>
+      <div class="auth-card">
+        <div class="auth-heading">
+          <span class="eyebrow" id="auth-eyebrow">QUÉ BUENO TENERTE DE VUELTA</span>
+          <h2 id="auth-title">Entra a tu espacio.</h2>
+          <p id="auth-subtitle">Tus ideas te están esperando.</p>
+        </div>
+
+        <div class="auth-tabs" role="tablist" aria-label="Acceso o registro" id="auth-tabs">
+          <button class="auth-tab is-active" id="tab-login" type="button" role="tab" aria-selected="true" aria-controls="login-panel">Iniciar sesión</button>
+          <button class="auth-tab" id="tab-register" type="button" role="tab" aria-selected="false" aria-controls="register-panel">Crear cuenta</button>
+        </div>
+
+        <form class="auth-form" id="login-panel" role="tabpanel" aria-labelledby="tab-login" novalidate>
+          <label for="login-email">Correo electrónico</label>
+          <input id="login-email" name="correo" type="email" autocomplete="email" placeholder="tu@correo.com" required maxlength="254">
+          <div class="field-heading"><label for="login-password">Contraseña</label><button class="text-button" type="button" data-view="recovery">¿La olvidaste?</button></div>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Tu contraseña" required maxlength="72">
+          <p class="form-message" id="login-message" aria-live="polite"></p>
+          <button class="button button-primary button-wide" type="submit">Entrar <span aria-hidden="true">→</span></button>
+        </form>
+
+        <form class="auth-form" id="register-panel" role="tabpanel" aria-labelledby="tab-register" hidden novalidate>
+          <label for="register-name">¿Cómo te llamas?</label>
+          <input id="register-name" name="nombre" type="text" autocomplete="name" placeholder="Tu nombre" required maxlength="80">
+          <label for="register-email">Correo electrónico</label>
+          <input id="register-email" name="correo" type="email" autocomplete="email" placeholder="tu@correo.com" required maxlength="254">
+          <label for="register-password">Crea una contraseña</label>
+          <input id="register-password" name="password" type="password" autocomplete="new-password" placeholder="Al menos 12 caracteres" required minlength="12" maxlength="72" aria-describedby="password-hint">
+          <p class="field-hint" id="password-hint">12 caracteres o más, con mayúscula, minúscula, número y símbolo.</p>
+          <p class="form-message" id="register-message" aria-live="polite"></p>
+          <button class="button button-primary button-wide" type="submit">Crear mi cuenta <span aria-hidden="true">→</span></button>
+        </form>
+
+        <section class="auth-form recovery-form" id="recovery-panel" aria-labelledby="recovery-title" hidden>
+          <button class="back-link" type="button" data-view="login"><span aria-hidden="true">←</span> Volver al inicio de sesión</button>
+          <h3 id="recovery-title">Recupera el acceso</h3>
+          <p class="recovery-copy">Escribe el correo de tu cuenta. Si existe, recibirás instrucciones para crear una contraseña nueva. En desarrollo, revisa la terminal del servidor para copiar el código.</p>
+          <form id="request-recovery-form">
+            <label for="recovery-email">Correo electrónico</label>
+            <input id="recovery-email" name="correo" type="email" autocomplete="email" placeholder="tu@correo.com" required maxlength="254">
+            <p class="form-message" id="recovery-message" aria-live="polite"></p>
+            <button class="button button-primary button-wide" type="submit">Enviar instrucciones <span aria-hidden="true">→</span></button>
+          </form>
+          <div class="reset-divider"><span>¿Ya tienes el código?</span></div>
+          <form id="reset-password-form">
+            <label for="reset-token">Código de recuperación</label>
+            <input id="reset-token" name="token" type="text" inputmode="text" autocomplete="one-time-code" placeholder="Pega aquí el código" required minlength="64" maxlength="64">
+            <label for="reset-password">Nueva contraseña</label>
+            <input id="reset-password" name="password" type="password" autocomplete="new-password" placeholder="Al menos 12 caracteres" required minlength="12" maxlength="72">
+            <p class="form-message" id="reset-message" aria-live="polite"></p>
+            <button class="button button-secondary button-wide" type="submit">Guardar contraseña</button>
+          </form>
+        </section>
+
+        <div class="auth-assurance"><svg><use href="#icon-lock"></use></svg><span>Tu privacidad es parte de cada detalle.</span></div>
+      </div>
+      <p class="auth-footer">Un espacio pequeño, solo para ti.</p>
+    </main>
+  </div>
+
+  <div id="app-screen" class="app-screen" hidden>
+    <aside class="sidebar">
+      <a class="brand brand-dark" href="/" aria-label="SecureVault, inicio">
+        <span class="brand-mark"><svg><use href="#icon-vault"></use></svg></span>
+        <span>secure<span class="brand-weight">vault</span></span>
+      </a>
+      <div class="sidebar-section-label">TU ESPACIO</div>
+      <button class="nav-item is-current" id="notes-nav" type="button" aria-label="Mis notas"><svg><use href="#icon-note"></use></svg><span>Mis notas</span><span class="nav-count" id="sidebar-count">0</span></button>
+      <button class="nav-item" id="profile-nav" type="button" aria-label="Mi perfil"><svg><use href="#icon-user"></use></svg><span>Mi perfil</span></button>
+      <button class="nav-item" id="admin-nav" type="button" aria-label="Administración" hidden><svg><use href="#icon-vault"></use></svg><span>Administración</span></button>
+      <div class="sidebar-bottom">
+        <div class="privacy-card"><span class="privacy-icon"><svg><use href="#icon-lock"></use></svg></span><strong>Solo tú tienes la llave</strong><p>El contenido de tus notas se cifra al guardarse.</p></div>
+        <div class="account-row">
+          <span class="avatar" id="user-avatar">S</span>
+          <span class="account-copy"><strong id="sidebar-name">Tu cuenta</strong><small id="sidebar-role">Usuario</small></span>
+          <button class="icon-button logout-button" id="logout-button" type="button" aria-label="Cerrar sesión" title="Cerrar sesión"><svg><use href="#icon-exit"></use></svg></button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <section id="notes-view" aria-label="Mis notas">
+      <header class="page-header">
+        <div>
+          <span class="eyebrow" id="welcome-eyebrow">TU ESPACIO PERSONAL</span>
+          <h1 id="welcome-title">Tus notas.</h1>
+          <p>Guarda aquí las cosas que quieres tener cerca.</p>
+        </div>
+        <button class="button button-primary new-note-button" id="new-note-button" type="button"><svg><use href="#icon-plus"></use></svg><span>Nueva nota</span></button>
+      </header>
+
+      <section class="notes-toolbar" aria-label="Buscar notas">
+        <div class="search-box"><svg><use href="#icon-search"></use></svg><label class="visually-hidden" for="note-search">Buscar en tus notas</label><input id="note-search" type="search" placeholder="Busca una nota…" autocomplete="off"></div>
+        <span class="notes-total" id="notes-total">0 notas</span>
+      </section>
+
+      <section class="notes-workspace" aria-label="Tus notas y editor">
+        <div class="notes-column">
+          <div class="column-heading"><span>TODAS LAS NOTAS</span><span class="column-mark" aria-hidden="true">✳</span></div>
+          <div class="notes-list" id="notes-list" aria-live="polite"></div>
+          <div class="empty-list" id="empty-list" hidden>
+            <span class="empty-icon"><svg><use href="#icon-note"></use></svg></span>
+            <strong>Aún no hay notas</strong>
+            <p>Empieza con una idea, un plan o algo que quieras recordar.</p>
+            <button class="text-button" type="button" id="first-note-button">Escribe tu primera nota <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="no-results" id="no-results" hidden>No encontramos notas con esa búsqueda.</div>
+        </div>
+
+        <article class="editor-card" aria-labelledby="editor-heading">
+          <div class="editor-topline"><span class="editor-lock"><svg><use href="#icon-lock"></use></svg> CIFRADO DE EXTREMO A EXTREMO</span><button class="icon-button mobile-close" id="close-editor-button" type="button" aria-label="Cerrar editor"><svg><use href="#icon-close"></use></svg></button></div>
+          <form id="note-form" class="note-form" hidden>
+            <input id="note-id" type="hidden">
+            <label class="visually-hidden" for="note-title">Título de la nota</label>
+            <input class="note-title-input" id="note-title" name="titulo" type="text" maxlength="120" placeholder="Ponle un título…" required>
+            <div class="editor-meta"><span id="note-date">Nueva nota</span><span class="meta-divider">·</span><span id="character-count">0 / 5000</span></div>
+            <label class="visually-hidden" for="note-content">Contenido de la nota</label>
+            <textarea id="note-content" name="contenido" maxlength="5000" placeholder="Empieza a escribir aquí…" required></textarea>
+            <div class="editor-bottom"><span class="save-status" id="save-status" aria-live="polite">Solo tú puedes leer esto.</span><div class="editor-actions"><button class="icon-button delete-button" id="delete-note-button" type="button" aria-label="Eliminar nota" title="Eliminar nota" hidden><svg><use href="#icon-trash"></use></svg></button><button class="button button-primary save-button" type="submit">Guardar nota</button></div></div>
+          </form>
+          <div class="editor-empty" id="editor-empty">
+            <div class="empty-art"><span class="empty-art-page page-back"></span><span class="empty-art-page page-front"><i></i><i></i><i></i></span><span class="empty-art-spark">✳</span></div>
+            <span class="eyebrow">UN MOMENTO PARA TI</span>
+            <h2 id="editor-heading">Elige una nota<br>o empieza algo nuevo.</h2>
+            <p>Tus palabras se guardan cifradas y solo aparecen en tu cuenta.</p>
+            <button class="button button-secondary" id="empty-new-button" type="button"><svg><use href="#icon-plus"></use></svg> Crear una nota</button>
+          </div>
+        </article>
+      </section>
+      <footer class="app-footer"><span>SECUREVAULT <span aria-hidden="true">✳</span> TU PRIVACIDAD, PRIMERO</span><span id="footer-role">Espacio privado</span></footer>
+      </section>
+
+      <section class="admin-view" id="admin-view" aria-labelledby="admin-title" hidden>
+        <header class="page-header">
+          <div>
+            <span class="eyebrow">GESTIÓN SEGURA</span>
+            <h1 id="admin-title">Administración.</h1>
+            <p>Revisa las cuentas y los últimos eventos de seguridad.</p>
+          </div>
+          <button class="button button-secondary" id="refresh-admin-button" type="button">Actualizar datos</button>
+        </header>
+        <div class="admin-grid">
+          <article class="admin-panel" aria-labelledby="users-heading">
+            <div class="admin-panel-heading"><div><span class="eyebrow">CUENTAS</span><h2 id="users-heading">Personas registradas</h2></div><span class="admin-count" id="admin-user-count">0</span></div>
+            <div class="admin-list" id="admin-users" aria-live="polite"></div>
+            <p class="admin-empty" id="admin-users-empty" hidden>No hay cuentas registradas.</p>
+          </article>
+          <article class="admin-panel" aria-labelledby="audit-heading">
+            <div class="admin-panel-heading"><div><span class="eyebrow">ACTIVIDAD</span><h2 id="audit-heading">Bitácora reciente</h2></div><span class="audit-status"><span class="status-dot"></span> EN VIVO</span></div>
+            <div class="audit-list" id="admin-audit" aria-live="polite"></div>
+            <p class="admin-empty" id="admin-audit-empty" hidden>Aún no hay eventos para mostrar.</p>
+          </article>
+        </div>
+        <p class="admin-note"><svg><use href="#icon-lock"></use></svg> La bitácora registra eventos, no contraseñas ni el contenido de las notas.</p>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="profile-dialog" id="profile-dialog" aria-labelledby="profile-title">
+    <form method="dialog"><button class="icon-button dialog-close" aria-label="Cerrar perfil"><svg><use href="#icon-close"></use></svg></button></form>
+    <div class="profile-symbol"><svg><use href="#icon-user"></use></svg></div>
+    <span class="eyebrow">TU CUENTA</span>
+    <h2 id="profile-title">Tu perfil</h2>
+    <p class="profile-intro">Tu información personal está protegida.</p>
+    <form id="profile-form" class="profile-form">
+      <label for="profile-name">Nombre</label>
+      <input id="profile-name" name="nombre" type="text" required maxlength="80">
+      <label for="profile-email">Correo electrónico</label>
+      <input id="profile-email" name="correo" type="email" readonly aria-describedby="email-note">
+      <span class="field-hint" id="email-note">El correo no se puede cambiar desde aquí.</span>
+      <label for="profile-phone">Teléfono <span class="optional-label">OPCIONAL</span></label>
+      <input id="profile-phone" name="telefono" type="tel" autocomplete="tel" placeholder="Añade un teléfono si quieres">
+      <button class="text-button clear-phone-button" id="clear-phone-button" type="button" hidden>Eliminar teléfono guardado</button>
+      <p class="form-message" id="profile-message" aria-live="polite"></p>
+      <div class="dialog-actions"><button class="button button-quiet" type="button" id="cancel-profile-button">Cancelar</button><button class="button button-primary" type="submit">Guardar cambios</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="confirm-dialog" id="delete-dialog" aria-labelledby="delete-title">
+    <div class="confirm-icon"><svg><use href="#icon-trash"></use></svg></div>
+    <h2 id="delete-title">¿Eliminar esta nota?</h2>
+    <p>Esta acción no se puede deshacer.</p>
+    <div class="dialog-actions"><button class="button button-quiet" type="button" id="cancel-delete-button">Conservar nota</button><button class="button button-danger" type="button" id="confirm-delete-button">Eliminar nota</button></div>
+  </dialog>
+
+  <dialog class="confirm-dialog unsaved-dialog" id="unsaved-dialog" aria-labelledby="unsaved-title">
+    <div class="confirm-icon unsaved-icon"><svg><use href="#icon-note"></use></svg></div>
+    <h2 id="unsaved-title">Tienes cambios sin guardar.</h2>
+    <p id="unsaved-message">¿Quieres guardar esta nota antes de continuar?</p>
+    <div class="dialog-actions">
+      <button class="button button-quiet" type="button" id="unsaved-cancel-button">Seguir editando</button>
+      <button class="button button-quiet" type="button" id="unsaved-discard-button">Descartar</button>
+      <button class="button button-primary" type="button" id="unsaved-save-button">Guardar</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

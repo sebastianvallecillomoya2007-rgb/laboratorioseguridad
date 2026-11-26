@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  securevault:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm audit --audit-level=high
+      - name: Check JavaScript syntax
+        run: |
+          node --check server.js
+          node --check db.js
+          node --check crypto.js
+          node --check middleware/auth.js
+          node --check routes/auth.routes.js
+          node --check routes/notes.routes.js
+          node --check routes/user.routes.js
+          node --check routes/admin.routes.js
